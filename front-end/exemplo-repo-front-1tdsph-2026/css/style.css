@@ -1,0 +1,36 @@
+header{
+    background-color: #1a1a1c;
+    padding: 1%;
+    color: #fff;
+    width: 95%;
+    height: 120px;
+    margin: 0 auto
+}
+
+/* Aplicando um estilo em vários elementos de uma só vez */
+/*p, h2{
+    color: #00f;
+    font-family: Arial, Helvetica, sans-serif;
+}*/
+
+header h1{
+    font-size: 40px;
+    text-align: center;
+    margin: 0;
+}
+
+header nav ul{
+    list-style: none;
+    background-color: #2c2c45;
+    padding: 0;
+}
+
+header nav ul li{
+    display: inline-block;
+    margin: 0 10px;
+}
+
+header nav ul li a{
+    color: #fff;
+    text-decoration: none;
+}
