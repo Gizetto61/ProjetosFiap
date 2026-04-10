@@ -24,7 +24,7 @@ public class Main
             // Entrada de dados iniciáis
             System.out.println("Digite um temperatura e um modo inicial: ");
             ar1.setTemperatura(scanner.nextInt());
-            ar1.setModo(scanner.nextLine());
+            ar1.setModo(scanner.next());
 
             // MENU
             System.out.println("=================================");
@@ -42,7 +42,7 @@ public class Main
                     break;
                 case 2:
                     System.out.print("Digite o NOVO modo: ");
-                    ar1.setModo(scanner.nextLine());
+                    ar1.setModo(scanner.next());
                     break;
                 case 3:
                     ar1.aumentarTemperatura();
@@ -64,6 +64,7 @@ public class Main
             System.out.println(e.getMessage());
         }
 
+        /*
         // Mock Test
         // Criação e instanciação do objeto tv1
         Televisor tv1 = new Televisor();
@@ -110,6 +111,6 @@ public class Main
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
+        */
     }
 }

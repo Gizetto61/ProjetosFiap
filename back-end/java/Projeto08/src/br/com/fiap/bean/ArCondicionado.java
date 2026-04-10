@@ -34,7 +34,7 @@ public class ArCondicionado
     public void setModo(String modo)
     {
         try {
-            if (modo.equals("ventilar") && modo.equals("aquecer") && modo.equals("resfriar")) {
+            if (modo.equalsIgnoreCase("ventilar") || modo.equalsIgnoreCase("aquecer") || modo.equalsIgnoreCase("resfriar")) {
                 this.modo = modo;
             } else {
                 throw new Exception("Modo inválido. \nPermitidos:[Ventilar, Aquecer e Resfriar]");
