@@ -1,3 +1,8 @@
+/*
+ * Felipe Lima de Oliveira - rm569947
+ * Giovanni Zorzetto Oliveira - rm569464
+ * Raphael Gomes Brito - rm572637*/
+
 package br.com.fiap.bean;
 
 import javax.swing.*;
