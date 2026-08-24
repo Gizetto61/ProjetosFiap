@@ -19,6 +19,19 @@ def criarLista(qtdAlunos):
     # retorno da matriz
     return matriz
 
+# Função para pedir nome dos Alunos
+def criarListaNomes(qtdAlunos):
+    # Lista vazia
+    nomes = []
+    # Laço que roda a quantidade de alunos informada
+    for i in range(qtdAlunos):
+        # Entrada de nome
+        nome = input(f'Digite o nome do Aluno {i + 1}: ')
+        # Adição de nome a lista
+        nomes.append(nome)
+    # Retorno da lista
+    return nomes
+
 # Função para calcular as médias dos alunos na matriz
 def calcularMedias(matriz):
     # lista vazia
@@ -40,23 +53,39 @@ def calcularMedias(matriz):
 
 # Função que percorre a matriz e exibe as listas dentro dela
 def mostrarMatriz(matriz):
+    # Laço que pega cada lista da matriz
     for linha in matriz:
+        # Exibe lista por lista
         print(linha)
 
+# Função que percorre a matriz e exibe as listas dentro dela
+def mostrarNomes(nomes):
+    # Exibe a lista
+    print(nomes)
+
 # Função que exibe as médias
-def mostrarMedias(matriz):
-    # chamada de função calcularMedias()
-    medias = calcularMedias(matriz)
+def mostrarMedias(medias):
     # laço que percorre a quantidade de medias dentro da lista
     for i in range(len(medias)):
         # exibição de média por aluno
         print(f'Aluno {i + 1}: média = {medias[i]:.1f}')
 
+# Função para conecar nomes à notas
+def mostarResultados(nomes, medias):
+    for i in range(len(nomes)):
+        print(f'{nomes[i]}: Média = {medias[i]:.1f}')
+
 # Main
 print('--- Cálculo de Médias ---')
 qtdAlunos = int(input('Informe a quantidade de alunos: '))
+nomes = criarListaNomes(qtdAlunos)
 matriz = criarLista(qtdAlunos)
+print('\n--- Impressão de Nomes ---')
+mostrarNomes(nomes)
 print('\n--- Impressão de Notas ---')
 mostrarMatriz(matriz)
 print('\n--- Exibição de Médias ---')
-mostrarMedias(matriz)
+medias = calcularMedias(matriz)
+mostrarMedias(medias)
+print('\n--- Relatório ---')
+mostarResultados(nomes, medias)
