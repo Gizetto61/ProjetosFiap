@@ -1,5 +1,6 @@
 package br.com.fiap.dao;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,7 +19,7 @@ public class ConnectionFactory {
             final String PASSWORD = "110507";
             // Instanciação do objeto con
             con = DriverManager.getConnection(url, USER, PASSWORD);
-            System.out.println("Conexão Aberta");
+            JOptionPane.showMessageDialog(null, "Conexão Aberta", "Atenção", JOptionPane.WARNING_MESSAGE);
         // Erro de importação de classe
         } catch (ClassNotFoundException e) {
             System.out.println("Erro: A classe de conexão não foi encontrada" + e.getMessage());
@@ -33,7 +34,7 @@ public class ConnectionFactory {
         try {
             // Fechamento do objeto de conexão
             con.close();
-            System.out.println("Conexão Fechada");
+            JOptionPane.showMessageDialog(null, "Conexão Fechada", "Atenção", JOptionPane.WARNING_MESSAGE);
         } catch (Exception e) {
             System.out.println("Erro de SQL: " + e.getMessage());
         }
