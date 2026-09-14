@@ -56,14 +56,16 @@ def listarAprovados(alunos, mediaMinima):
 
 # Questão 6
 # lerNota()
-def lerNota(mediaMin):
+def lerNota():
     while True:
         try:
+            mediaMin = float(input('\nDigite a nota mínima para a aprovação: '))
             notaFloat = float(mediaMin)
             print(notaFloat)
             break
         except ValueError:
             print('Entrada inválida! Digite uma nota válida')
+    return notaFloat
 
 # Questão 7
 # adicionarAluno(alunos, nome, nota)
@@ -88,8 +90,7 @@ def controle(alunos):
             print(alunos, '\n\nAluno(a) cadastrado!')
             consultarNotas(alunos, nome)
     print(f'\nNota de {nome}: {nota}')
-    mediaMin = float(input('\nDigite uma nota mínima: '))
-    lerNota(mediaMin)
+    mediaMin = lerNota()
     aprovados = listarAprovados(alunos, mediaMin)
     print('\nAlunos Aprovados: ')
     for i in aprovados:
