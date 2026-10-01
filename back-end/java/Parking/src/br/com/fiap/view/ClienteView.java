@@ -18,7 +18,7 @@ public class ClienteView {
             try {
                 opcao = JOptionPane.showOptionDialog(
                         null,
-                        "Escolha uma das opções abaixo para manipular um carro",
+                        "Escolha uma das opções abaixo para manipular um cliente",
                         "Faça sua escolha",
                         JOptionPane.DEFAULT_OPTION,
                         JOptionPane.QUESTION_MESSAGE,
