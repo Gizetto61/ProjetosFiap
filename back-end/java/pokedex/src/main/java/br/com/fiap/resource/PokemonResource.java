@@ -27,6 +27,19 @@ public class PokemonResource {
         }
     }
 
+    @GetMapping("/{codigo}")
+    public ResponseEntity<?> findByCodigo(@PathVariable Long codigo) {
+        PokemonTO pokemon = pokemonBO.findByCodigo(codigo);
+
+        if (pokemon != null) {
+            // mensagem de retorno OK
+            return ResponseEntity.status(HttpStatus.OK).body(pokemon);
+        } else {
+            // mensagem de retorno Error 404
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pokemon não encontrado!");
+        }
+    }
+
     @PostMapping
     public ResponseEntity<?> save(@RequestBody PokemonTO pokemon) {
         try {

@@ -4,6 +4,7 @@ import br.com.fiap.to.PokemonTO;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,25 +14,59 @@ public class PokemonDAO {
     public ArrayList<PokemonTO> findAll() {
         // Lista
         ArrayList<PokemonTO> pokemons = new ArrayList<>();
-        // Objeto
-        PokemonTO pokemon = new PokemonTO();
 
-        // preenchimento
-        pokemon = new PokemonTO(1L, "Pikachu", 1.50, 100.0, "Raio", LocalDate.now());
-        // Novo pokemon na lista
-        pokemons.add(pokemon);
+        String sql = "SELECT * FROM DDD_POKEMON ORDER BY codigo";
+        try (PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(sql)){
+            ResultSet rs = ps.executeQuery();
+            if (rs != null) {
+                while (rs.next()){
+                    PokemonTO pokemon = new PokemonTO();
+                    pokemon.setCodigo(rs.getLong("codigo"));
+                    pokemon.setNome(rs.getString("nome"));
+                    pokemon.setAltura(rs.getDouble("altura"));
+                    pokemon.setPeso(rs.getDouble("peso"));
+                    pokemon.setCategoria(rs.getString("categoria"));
+                    pokemon.setDataDaCaptura(rs.getDate("data_de_captura").toLocalDate());
 
-        // preenchimento
-        pokemon = new PokemonTO(2L, "Mewtwo", 1.90, 150.0, "Psíquico", LocalDate.now());
-        // Novo pokemon na lista
-        pokemons.add(pokemon);
-
-        // preenchimento
-        pokemon = new PokemonTO(3L, "Charizard", 3.0, 500.0, "Fogo", LocalDate.now());
-        // Novo pokemon na lista
-        pokemons.add(pokemon);
+                    pokemons.add(pokemon);
+                }
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar:" + e.getMessage());
+        } finally {
+            ConnectionFactory.closeConnection();
+        }
 
         return pokemons;
+    }
+
+    // Buscar um pokemon específico
+    // SELECT
+    public PokemonTO findByCodigo(Long codigo) {
+        PokemonTO pokemon = new PokemonTO();
+
+        String sql = "SELECT * FROM DDD_POKEMON WHERE codigo = ?";
+        try(PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(sql)) {
+            ps.setLong(1, codigo);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                pokemon.setCodigo(rs.getLong("codigo"));
+                pokemon.setNome(rs.getString("nome"));
+                pokemon.setAltura(rs.getDouble("altura"));
+                pokemon.setPeso(rs.getDouble("peso"));
+                pokemon.setCategoria(rs.getString("categoria"));
+                pokemon.setDataDaCaptura(rs.getDate("data_de_captura").toLocalDate());
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar:" + e.getMessage());
+        } finally {
+            ConnectionFactory.closeConnection();
+        }
+        return pokemon;
     }
 
     // CREATE / INSERT

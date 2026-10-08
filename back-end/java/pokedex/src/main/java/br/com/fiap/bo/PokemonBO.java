@@ -17,13 +17,15 @@ public class PokemonBO {
         return pokemonDAO.findAll();
     }
 
+    public PokemonTO findByCodigo(Long codigo) {
+        pokemonDAO = new PokemonDAO();
+        // regras de negócio...
+        return pokemonDAO.findByCodigo(codigo);
+    }
+
     public PokemonTO save(PokemonTO pokemon) {
         pokemonDAO = new PokemonDAO();
         // Regras de negócio
-        // Verificando se o pokemon foi capturado no futuro
-        if (pokemon.getDataDaCaptura().isAfter(LocalDate.now())) {
-            return null;
-        }
         return pokemonDAO.save(pokemon);
     }
 }
