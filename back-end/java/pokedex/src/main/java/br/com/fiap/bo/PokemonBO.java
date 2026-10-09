@@ -28,4 +28,16 @@ public class PokemonBO {
         // Regras de negócio
         return pokemonDAO.save(pokemon);
     }
+
+    public PokemonTO update(PokemonTO pokemon) {
+        pokemonDAO = new PokemonDAO();
+        // Regras de negócio...
+        return pokemonDAO.update(pokemon);
+    }
+
+    public boolean delete(Long codigo) {
+        pokemonDAO = new PokemonDAO();
+        // Regras de negócio...
+        return pokemonDAO.delete(codigo);
+    }
 }

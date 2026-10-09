@@ -1,9 +1,6 @@
 package br.com.fiap.to;
 
-import jakarta.validation.constraints.NegativeOrZero;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
@@ -13,10 +10,10 @@ public class PokemonTO {
     @NotBlank
     private String nome;
     @NotNull
-    @NegativeOrZero
+    @PositiveOrZero
     private Double altura;
     @NotNull
-    @NegativeOrZero
+    @PositiveOrZero
     private Double peso;
     @NotNull
     private String categoria;

@@ -90,4 +90,42 @@ public class PokemonDAO {
         }
         return null;
     }
+
+    // UPDATE
+    public PokemonTO update(PokemonTO pokemon) {
+        String sql = "UPDATE DDD_POKEMON SET nome = ?, altura = ?, peso = ?, categoria = ?, data_de_captura = ? WHERE codigo = ?";
+        try(PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(sql)) {
+            ps.setString(1, pokemon.getNome());
+            ps.setDouble(2, pokemon.getAltura());
+            ps.setDouble(3, pokemon.getPeso());
+            ps.setString(4, pokemon.getCategoria());
+            ps.setDate(5, Date.valueOf(pokemon.getDataDaCaptura()));
+            ps.setLong(6, pokemon.getCodigo());
+
+            if (ps.executeUpdate() > 0) {
+                return pokemon;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao alterar: " + e.getMessage());
+        } finally {
+            ConnectionFactory.closeConnection();
+        }
+        return null;
+    }
+
+    // DELETE
+    public boolean delete(Long codigo) {
+        String sql = "DELETE FROM DDD_POKEMON WHERE codigo = ?";
+        try(PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(sql)) {
+            ps.setLong(1, codigo);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("Erro ao excluir: " + e.getMessage());
+        } finally {
+            ConnectionFactory.closeConnection();
+        }
+        return false;
+    }
 }
