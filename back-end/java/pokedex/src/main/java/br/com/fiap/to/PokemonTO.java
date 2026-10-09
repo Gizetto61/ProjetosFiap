@@ -1,14 +1,23 @@
 package br.com.fiap.to;
 
+import jakarta.validation.constraints.*;
+
 import java.time.LocalDate;
 
 public class PokemonTO {
     // Atributos
     private Long codigo;
+    @NotBlank
     private String nome;
+    @NotNull
+    @PositiveOrZero
     private Double altura;
+    @NotNull
+    @PositiveOrZero
     private Double peso;
+    @NotNull
     private String categoria;
+    @PastOrPresent
     private LocalDate dataDaCaptura;
 
     // Construtores

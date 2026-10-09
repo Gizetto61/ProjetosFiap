@@ -16,13 +16,27 @@ public class RemedioBO {
         return remedioDAO.findAll();
     }
 
+    public RemedioTO findByCodigo(Long codigo) {
+        remedioDAO = new RemedioDAO();
+        // Aqui se implementa as regras de negócio
+        return remedioDAO.findByCodigo(codigo);
+    }
+
     public RemedioTO save(RemedioTO remedio) {
         remedioDAO = new RemedioDAO();
         // Regras de negócio
-        // Verificando se o remédio está vencido
-        if (remedio.getDataDeValidade().isBefore(LocalDate.now())) {
-            return null;
-        }
         return remedioDAO.save(remedio);
+    }
+
+    public RemedioTO update(RemedioTO remedio) {
+        remedioDAO = new RemedioDAO();
+        // Regras de negócio...
+        return remedioDAO.update(remedio);
+    }
+
+    public boolean delete(Long codigo) {
+        remedioDAO = new RemedioDAO();
+        // Regras de negócio...
+        return remedioDAO.delete(codigo);
     }
 }

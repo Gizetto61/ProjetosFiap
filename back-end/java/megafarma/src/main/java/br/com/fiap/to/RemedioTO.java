@@ -1,24 +1,31 @@
 package br.com.fiap.to;
 
+import jakarta.validation.constraints.*;
+
 import java.time.LocalDate;
 
 public class RemedioTO {
     // Atributos
     private Long codigo;
+    @NotBlank
     private String nome;
+    @NotNull
+    @PositiveOrZero
     private Double preco;
-    private LocalDate dataDeFabicacao;
+    @PastOrPresent
+    private LocalDate dataDeFabricacao;
+    @FutureOrPresent
     private LocalDate dataDeValidade;
 
     // Construtores
     public RemedioTO() {
     }
 
-    public RemedioTO(Long codigo, String nome, Double preco, LocalDate dataDeFabicacao, LocalDate dataDeValidade) {
+    public RemedioTO(Long codigo, String nome, Double preco, LocalDate dataDeFabricacao, LocalDate dataDeValidade) {
         this.codigo = codigo;
         this.nome = nome;
         this.preco = preco;
-        this.dataDeFabicacao = dataDeFabicacao;
+        this.dataDeFabricacao = dataDeFabricacao;
         this.dataDeValidade = dataDeValidade;
     }
 
@@ -47,12 +54,12 @@ public class RemedioTO {
         this.preco = preco;
     }
 
-    public LocalDate getDataDeFabicacao() {
-        return dataDeFabicacao;
+    public LocalDate getDataDeFabricacao() {
+        return dataDeFabricacao;
     }
 
-    public void setDataDeFabicacao(LocalDate dataDeFabicacao) {
-        this.dataDeFabicacao = dataDeFabicacao;
+    public void setDataDeFabricacao(LocalDate dataDeFabicacao) {
+        this.dataDeFabricacao = dataDeFabicacao;
     }
 
     public LocalDate getDataDeValidade() {
