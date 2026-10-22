@@ -2,12 +2,12 @@ import oracledb
 
 DB_USER = "rm569464"
 DB_PASS = "110507"
-DB_DNS = "oracle.fiap.com.br:1521/ORCL" # Exemplo: host:porta/serviço
+DB_DSN = "oracle.fiap.com.br:1521/ORCL" # Exemplo: host:porta/serviço
 
 # Função de conexão
 def abrirConexao():
     try:
-        conexao = oracledb.connect(user = DB_USER, password = DB_PASS, dsn = DB_DNS)
+        conexao = oracledb.connect(user = DB_USER, password = DB_PASS, dsn = DB_DSN)
         return conexao
     except oracledb.Error as e:
         print(f'Erro ao conectar com o Oracle DB: {e}')
@@ -55,9 +55,90 @@ def criarAluno(nome, email, curso):
     finally:
         conexao.close()
 
+# READ / SELECT
+def listarTodos():
+    # Consulta que exibe todos os alunos
+    sql = "SELECT * FROM ALUNOS_PY ORDER BY id"
+    # Obter conexão
+    conexao = abrirConexao()
+    # Validação de conexão
+    if conexao:
+        try:
+            cursor = conexao.cursor()
+            cursor.execute(sql)
+            # fetch all - recupera TODAS as linhas da consulta executada
+            alunos = cursor.fetchall()
+
+            print("\n--- LISTA DE ALUNOS ---")
+            # Validação
+            if not alunos:
+                print("Nenhum aluno foi encontrado!")
+            else:
+                for aluno in alunos:
+                    # Desenpacotamento de uma Tupla
+                    idAluno, nome, email, curso = aluno
+                    # Exibição
+                    print(f'ID: {idAluno} | Nome: {nome} | Email: {email} | Curso: {curso}')
+                    print('----------------------------------------------------------------------------------\n')
+        except oracledb.Error as e:
+            print(f'Erro ao listar alunos: {e}')
+        finally:
+            conexao.close()
+
+# UPDATE
+# Atualizar o email do aluno com base no id
+def updateEmailAluno(idAluno, novoEmail):
+    # Comando SQL
+    sql = "UPDATE ALUNOS_PY SET email = :1 WHERE id = :2"
+    # abrindo conexão
+    conexao = abrirConexao()
+    # Verificação
+    if conexao:
+        try:
+            cursor = conexao.cursor()
+            cursor.execute(sql, (novoEmail, idAluno))
+            conexao.commit()
+            # Verifica se houve alteração
+            if cursor.rowcount > 0:
+                print(f'Email do aluno ID {idAluno} foi atualizado com sucesso!')
+            else:
+                print(f'Nenhum aluno encontrado com o ID {idAluno}')
+        except oracledb.Error as e:
+            print(f'Erro ao atualizar o aluno: {e}')
+        finally:
+            conexao.close()
+
+# DELETE
+# Excluir uma aluno com base no id
+def deleteAluno(idAluno):
+    # Comando sql
+    sql = 'DELETE FROM ALUNOS_PY WHERE id = 1:'
+    # abrindo conexão
+    conexao = abrirConexao()
+    # Verificação
+    if conexao:
+        try:
+            # Armazenamento em cursor
+            cursor = conexao.cursor()
+            cursor.execute(sql, (idAluno))
+            conexao.commit()
+            # Verifica se foi executado
+            if cursor.rowcount > 0:
+                print(f'Aluno ID {idAluno} removido com sucesso!')
+            else:
+                print(f'Nenhum aluno encontrado com ID {idAluno}')
+        except oracledb.Error as e:
+            print(f'Erro ao deletar aluno: {e}')
+        finally:
+            conexao.close()
+
 # MAIN
 print('--- CRUD Oracle Python ---')
-criarTabela()
-criarAluno("Giovanni Zorzetto", "gigiozetto@gmail.com", "ADS")
-criarAluno("Raphael Gomes", "phaelRGB@gmail.com", "ADS")
-criarAluno("Felipe Lima", "felipelimaoliveira2007@gmail.com", "ADS")
+# criarTabela()
+# criarAluno("Giovanni Zorzetto", "gigiozetto@gmail.com", "ADS")
+# criarAluno("Raphael Gomes", "phaelRGB@gmail.com", "ADS")
+# criarAluno("Felipe Lima", "felipelimaoliveira2007@gmail.com", "ADS")
+listarTodos()
+# updateEmailAluno(3, "felps@gmail.com")
+deleteAluno(3)
+listarTodos()
